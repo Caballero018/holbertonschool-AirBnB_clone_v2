@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 import os
 
-HBNB_TYPE_STORAGE = os.environ['HBNB_TYPE_STORAGE']
+HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
 
 
 class City(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
