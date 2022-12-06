@@ -24,9 +24,9 @@ class User(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
             single_parent=True
         )
         reviews = relationship("Review", cascade="all,delete",
-            backref=backref("user", cascade="all,delete"),
-            passive_deletes=True,
-            single_parent=True)
+                               backref=backref("user", cascade="all,delete"),
+                               passive_deletes=True,
+                               single_parent=True)
     else:
         email = ''
         password = ''
