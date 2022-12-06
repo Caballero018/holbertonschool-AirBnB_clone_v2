@@ -61,5 +61,5 @@ class BaseModel:
         "Method of instance delate"
         from models import storage
         if storage.__objects is not None or storage.__objects != '{}':
-            for keys in storage.__objects.keys():
+            for keys in storage.__objects.keys().copy():
                 storage.delete(keys)
