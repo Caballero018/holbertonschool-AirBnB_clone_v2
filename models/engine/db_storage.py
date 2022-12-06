@@ -22,7 +22,7 @@ classes = {
     'Review': Review,
     'State': State,
     'Place': Place,
-    # 'Amenity': Amenity
+    'Amenity': Amenity
     }
 
 class DBStorage:
