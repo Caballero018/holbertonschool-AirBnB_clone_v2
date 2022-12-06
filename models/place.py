@@ -7,24 +7,17 @@ import os
 
 HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
 
-metadata = Base.metadata
-place_amenity = Table(
-    'place_amenity',
-    metadata,
-    Column(
-        'place_id',
-        String(60),
-        ForeignKey('places.id'),
-        primary_key=True,
-        nullable=False),
-    Column(
-        'amenity_id',
-        String(60),
-        ForeignKey('amenities.id'),
-        primary_key=True,
-        nullable=False),
-    extend_existing=True)
-
+place_amenity = Table("place_amenity", Base.metadata,
+                          Column("place_id",
+                                 String(60),
+                                 ForeignKey("places.id"),
+                                 primary_key=True,
+                                 nullable=False),
+                          Column("amenity_id",
+                                 String(60),
+                                 ForeignKey("amenities.id"),
+                                 primary_key=True,
+                                 nullable=False))
 
 
 class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
@@ -79,15 +72,14 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
                 if Review.place_id == self.id:
                     ls.append(review)
             return ls
-
         @property
         def amenities(self):
             from models import storage
             from models.amenity import Amenity
-            return [amenity for amenity in list(storage.all(Amenity).values())
-                    if amenity.id in self.amenity_ids]
-
-        @amenities.setter
-        def amenities(self, obj):
-            if obj is not None:
-                self.amenity_ids.append(obj.id)
+            ls = []
+            objects_cities = storage.all(Amenity)
+            for amenity in objects_cities.values():
+                if Amenity.place_id == self.id:
+                    ls.append(amenity)
+            return ls
+        
