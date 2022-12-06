@@ -10,8 +10,14 @@ HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
 
 class User(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
     """This class defines a user by various attributes"""
-    __tablename__ = 'users'
-    email = Column(String(128), nullable=False)
-    password = Column(String(128), nullable=False)
-    first_name = Column(String(128), nullable=False)
-    last_name = Column(String(128), nullable=False)
+    if HBNB_TYPE_STORAGE == 'db':
+        __tablename__ = 'users'
+        email = Column(String(128), nullable=False)
+        password = Column(String(128), nullable=False)
+        first_name = Column(String(128), nullable=False)
+        last_name = Column(String(128), nullable=False)
+    else:
+        email = ''
+        password = ''
+        first_name = ''
+        last_name = ''
