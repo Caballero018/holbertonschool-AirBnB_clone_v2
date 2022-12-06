@@ -5,8 +5,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 import os
 
-
 HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
+
 
 class Amenity(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
     if HBNB_TYPE_STORAGE == 'db':
@@ -18,6 +18,6 @@ class Amenity(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
             viewonly=False,
             back_populates="amenities"
         )
-        
+
     else:
         name = ""
