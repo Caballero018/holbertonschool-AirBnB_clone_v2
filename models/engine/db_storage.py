@@ -25,12 +25,18 @@ classes = {
     'Amenity': Amenity
     }
 
+
 class DBStorage:
     __engine: None
     __session: None
 
     def __init__(self):
-        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(user, password, host, database), pool_pre_ping=True)
+        self.__engine = create_engine(
+            "mysql+mysqldb://{}:{}@{}/{}".format(
+                user, password, host, database
+                ),
+            pool_pre_ping=True
+            )
 
         if os.getenv("HBNB_ENV ") == 'test':
             meta = MetaData(self.__engine)
