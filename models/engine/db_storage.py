@@ -19,7 +19,7 @@ database = os.getenv('HBNB_MYSQL_DB')
 classes = {
     'City': City,
     'User': User,
-    # 'Review': Review,
+    'Review': Review,
     'State': State,
     'Place': Place,
     # 'Amenity': Amenity
