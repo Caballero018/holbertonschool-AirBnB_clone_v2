@@ -2,7 +2,7 @@
 """This module defines a class User"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, ForeignKey
-
+from sqlalchemy.orm import relationship
 import os
 
 HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
@@ -16,6 +16,7 @@ class User(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
         password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=False)
         last_name = Column(String(128), nullable=False)
+        places = relationship("Place", backref="user",cascade="all, delete, delete-orphan")
     else:
         email = ''
         password = ''
