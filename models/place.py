@@ -7,17 +7,24 @@ import os
 
 HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
 
-place_amenity = Table("place_amenity", Base.metadata,
-                          Column("place_id",
-                                 String(60),
-                                 ForeignKey("places.id"),
-                                 primary_key=True,
-                                 nullable=False),
-                          Column("amenity_id",
-                                 String(60),
-                                 ForeignKey("amenities.id"),
-                                 primary_key=True,
-                                 nullable=False))
+metadata = Base.metadata
+place_amenity = Table(
+    'place_amenity',
+    metadata,
+    Column(
+        'place_id',
+        String(60),
+        ForeignKey('places.id'),
+        primary_key=True,
+        nullable=False),
+    Column(
+        'amenity_id',
+        String(60),
+        ForeignKey('amenities.id'),
+        primary_key=True,
+        nullable=False),
+    extend_existing=True)
+
 
 
 class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
@@ -72,21 +79,15 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
                 if Review.place_id == self.id:
                     ls.append(review)
             return ls
+
         @property
         def amenities(self):
-            """Return a list with the citites"""
-            from models.amenity import Amenity
             from models import storage
-            amenity_dict = storage.all(Amenity)
-            amenities_list = []
-            for key, value in amenity_dict.items():
-                if value.id in self.amenity_ids:
-                    amenities_list.append(value)
-            return amenities_list
+            from models.amenity import Amenity
+            return [amenity for amenity in list(storage.all(Amenity).values())
+                    if amenity.id in self.amenity_ids]
 
         @amenities.setter
-        def amenities(self, amenity):
-            """Setter for amenity_ids"""
-            from models.amenity import Amenity
-            if isinstance(amenity, Amenity):
-                self.amenity_ids.append(amenity.id)
+        def amenities(self, obj):
+            if obj is not None:
+                self.amenity_ids.append(obj.id)
