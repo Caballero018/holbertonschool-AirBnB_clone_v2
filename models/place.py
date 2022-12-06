@@ -74,14 +74,15 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
             return ls
         @property
         def amenities(self):
-            from models import storage
+            """Return a list with the citites"""
             from models.amenity import Amenity
-            ls = []
-            objects_cities = storage.all(Amenity)
-            for amenity in objects_cities.values():
-                if Amenity.place_id == self.id:
-                    ls.append(amenity)
-            return ls
+            from models import storage
+            amenity_dict = storage.all(Amenity)
+            amenities_list = []
+            for key, value in amenity_dict.items():
+                if value.id in self.amenity_ids:
+                    amenities_list.append(value)
+            return amenities_list
 
         @amenities.setter
         def amenities(self, amenity):
