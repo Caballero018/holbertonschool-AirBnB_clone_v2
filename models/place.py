@@ -1,11 +1,23 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship, backref
 import os
 
 HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
+
+place_amenity = Table("place_amenity", Base.metadata,
+                          Column("place_id",
+                                 String(60),
+                                 ForeignKey("places.id"),
+                                 primary_key=True,
+                                 nullable=False),
+                          Column("amenity_id",
+                                 String(60),
+                                 ForeignKey("amenities.id"),
+                                 primary_key=True,
+                                 nullable=False))
 
 
 class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
@@ -29,6 +41,12 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
             passive_deletes=True,
             single_parent=True
             )
+        amenities = relationship(
+            "Amenity",
+            secondary="place_amenity",
+            viewonly=False,
+            back_populates="place_amenities"
+        )
         
     else:   
         city_id = ""
@@ -53,5 +71,15 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
             for review in objects_cities.values():
                 if Review.place_id == self.id:
                     ls.append(review)
+            return ls
+        @property
+        def amenities(self):
+            from models import storage
+            from models.amenity import Amenity
+            ls = []
+            objects_cities = storage.all(Amenity)
+            for amenity in objects_cities.values():
+                if Amenity.place_id == self.id:
+                    ls.append(amenity)
             return ls
         
