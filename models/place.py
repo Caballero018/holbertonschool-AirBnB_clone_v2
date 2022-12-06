@@ -82,4 +82,10 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
                 if Amenity.place_id == self.id:
                     ls.append(amenity)
             return ls
-        
+
+        @amenities.setter
+        def amenities(self, amenity):
+            """Setter for amenity_ids"""
+            from models.amenity import Amenity
+            if isinstance(amenity, Amenity):
+                self.amenity_ids.append(amenity.id)
