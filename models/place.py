@@ -7,17 +7,17 @@ import os
 
 HBNB_TYPE_STORAGE = os.getenv('HBNB_TYPE_STORAGE')
 
-place_amenity = Table("place_amenity", Base.metadata,
-                          Column("place_id",
-                                 String(60),
-                                 ForeignKey("places.id"),
-                                 primary_key=True,
-                                 nullable=False),
-                          Column("amenity_id",
-                                 String(60),
-                                 ForeignKey("amenities.id"),
-                                 primary_key=True,
-                                 nullable=False))
+
+place_amenity = Table(
+                    "place_amenity", Base.metadata,
+                    Column(
+                        "place_id", String(60), ForeignKey("places.id"),
+                        primary_key=True, nullable=False
+                        ), Column(
+                        "amenity_id", String(60), ForeignKey("amenities.id"),
+                        primary_key=True, nullable=False
+                        )
+                    )
 
 
 class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
@@ -47,8 +47,8 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
             viewonly=False,
             back_populates="place_amenities"
         )
-        
-    else:   
+
+    else:
         city_id = ""
         user_id = ""
         name = ""
@@ -72,6 +72,7 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
                 if Review.place_id == self.id:
                     ls.append(review)
             return ls
+
         @property
         def amenities(self):
             from models import storage
@@ -82,4 +83,3 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
                 if Amenity.place_id == self.id:
                     ls.append(amenity)
             return ls
-        
