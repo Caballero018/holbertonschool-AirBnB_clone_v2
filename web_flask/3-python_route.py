@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Script that starts a Flask web application"""
-from flask import Flask
+from flask import Flask, redirect, url_for
 from markupsafe import escape
 
 
@@ -9,7 +9,7 @@ app.url_map.strict_slashes = False
 
 
 @app.route('/')
-def Hello_HBNB():
+def index():
     return "Hello HBNB!"
 
 
@@ -28,5 +28,10 @@ def text_2(text):
     return "Python {:s}".format(escape(text).replace('_', ' '))
 
 
+@app.route('/python/')
+def text_2():
+    return redirect(url_for('<text>'))
+
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)
