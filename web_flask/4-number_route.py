@@ -29,9 +29,9 @@ def text_2(text):
     return "Python {:s}".format(escape(text).replace('_', ' '))
 
 
-@app.route('/python/<int:n>')
+@app.route('/number/<int:n>')
 def number(n):
-    return "{} is a number".format(escape(eval(n)))
+    return "{} is a number".format(escape(n))
 
 
 if __name__ == '__main__':
