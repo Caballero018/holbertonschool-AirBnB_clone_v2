@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Script that starts a Flask web application"""
 from flask import Flask
+from markupsafe import escape
 
 
 app = Flask(__name__)
@@ -18,8 +19,8 @@ def HBNB():
 
 
 @app.route('/c/<text>')
-def HBNB():
-    return "C {}".format()
+def text(text):
+    return "C {}".format(escape(text))
 
 
 if __name__ == '__main__':
