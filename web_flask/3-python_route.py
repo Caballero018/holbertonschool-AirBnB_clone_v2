@@ -23,7 +23,7 @@ def text(text):
     return "C {:s}".format(escape(text).replace('_', ' '))
 
 
-@app.route('/python')
+@app.route('/python', defaults={'text': 'is cool'})
 @app.route('/python/<text>')
 def text_2(text):
     return "Python {:s}".format(escape(text).replace('_', ' '))
