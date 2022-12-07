@@ -31,7 +31,8 @@ def text_2(text):
 
 @app.route('/python/<int:n>')
 def number(n):
-    return "{} is a number".format(escape(n)) if type(n) is int else ""
+    if type(n) is int:
+        return "{} is a number".format(escape(n))
 
 
 if __name__ == '__main__':
