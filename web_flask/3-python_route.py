@@ -28,10 +28,5 @@ def text_2(text):
     return "Python {:s}".format(escape(text).replace('_', ' '))
 
 
-@app.route('/python/')
-def text_3():
-    return redirect(url_for('<text>'))
-
-
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
