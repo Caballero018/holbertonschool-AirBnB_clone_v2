@@ -20,7 +20,7 @@ def HBNB():
 
 @app.route('/c/<text>')
 def text(text):
-    return "C {}".format(escape(text))
+    return "C {:s}".format(escape(text).replace('_', ' '))
 
 
 if __name__ == '__main__':
