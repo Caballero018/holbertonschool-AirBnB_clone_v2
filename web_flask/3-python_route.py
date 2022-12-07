@@ -24,7 +24,7 @@ def text(text):
 
 
 @app.route('/python/<text>')
-def text(text):
+def text_2(text):
     return "Python {:s}".format(escape(text).replace('_', ' '))
 
 
