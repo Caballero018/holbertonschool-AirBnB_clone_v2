@@ -30,7 +30,7 @@ def text_2(text):
 
 
 @app.route('/python/<int:n>')
-def text_2(n):
+def number(n):
     return "{} is a number".format(escape(n))
 
 
