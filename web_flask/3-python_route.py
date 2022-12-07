@@ -29,7 +29,7 @@ def text_2(text):
 
 
 @app.route('/python/')
-def text_2():
+def text_3():
     return redirect(url_for('<text>'))
 
 
