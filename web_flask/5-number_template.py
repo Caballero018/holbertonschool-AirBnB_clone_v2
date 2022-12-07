@@ -35,7 +35,7 @@ def number(n):
 
 
 @app.route('/number_template/<int:n>')
-def number(n):
+def numb(n):
     return render_template('./templates/5-number.html', "{} is a number".format(escape(n)))
 
 
