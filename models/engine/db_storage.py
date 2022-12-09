@@ -9,6 +9,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from sqlalchemy.orm import Session
 
 
 user = os.getenv('HBNB_MYSQL_USER')
@@ -74,4 +75,4 @@ class DBStorage:
         self.__session = Session1
 
     def close(self):
-        self.__session.close()
+        Session.close(self.__session)
