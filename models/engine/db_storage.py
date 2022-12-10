@@ -28,8 +28,8 @@ classes = {
 
 
 class DBStorage:
-    __engine: None
-    __session: None
+    __engine = None
+    __session = None
 
     def __init__(self):
         self.__engine = create_engine(
