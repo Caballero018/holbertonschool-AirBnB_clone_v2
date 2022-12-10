@@ -29,6 +29,6 @@ class State(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
             ls = []
             objects_cities = storage.all(City)
             for city in objects_cities.values():
-                if City.state_id == self.id:
+                if city.state_id == self.id:
                     ls.append(city)
             return ls
