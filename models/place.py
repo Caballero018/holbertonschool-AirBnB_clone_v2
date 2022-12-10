@@ -80,6 +80,6 @@ class Place(BaseModel, Base if HBNB_TYPE_STORAGE == 'db' else object):
             ls = []
             objects_cities = storage.all(Amenity)
             for amenity in objects_cities.values():
-                if Amenity.place_id == self.id:
+                if amenity.place_id == self.id:
                     ls.append(amenity)
             return ls
