@@ -13,7 +13,8 @@ class FileStorage:
         if cls:
             new_instance = {}
             for k, v in FileStorage.__objects.items():
-                if cls.__name__ == type(v).__name__:
+                key = k.split('.')
+                if cls.__name__ == key[0]:
                     new_instance[k] = v
             return new_instance
         return FileStorage.__objects
