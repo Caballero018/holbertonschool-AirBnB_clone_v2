@@ -2,17 +2,17 @@
 """Script that starts a Flask web application"""
 from flask import Flask, render_template
 from markupsafe import escape
-import sys
-sys.path.append("..")
 from models import storage
 from models.state import State
 
 
 app = Flask(__name__)
 
+
 @app.teardown_appcontext
 def teardown_db(self):
     storage.close()
+
 
 @app.route('/states_list', strict_slashes=False)
 def states_list():
