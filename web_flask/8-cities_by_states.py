@@ -2,19 +2,15 @@
 """Script that starts a Flask web application"""
 from flask import Flask, render_template
 from markupsafe import escape
-import sys
-sys.path.append("..")
 from models import storage
 from models.state import State
-from models.city import City
 
 
 app = Flask(__name__)
-app.url_map.strict_slashes = False
 
 
 @app.teardown_appcontext
-def teardown_db(self):
+def teardown_db(execute):
     storage.close()
 
 
