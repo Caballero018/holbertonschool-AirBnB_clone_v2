@@ -4,6 +4,7 @@ from flask import Flask, render_template
 from markupsafe import escape
 from models import storage
 from models.state import State
+from models.city import City
 
 
 app = Flask(__name__)
@@ -18,7 +19,8 @@ def teardown_db(execute):
 def state_list():
     """Returns a HTML with states list"""
     state_dict = storage.all(State).values()
-    return render_template('8-cities_by_states.html', states=state_dict)
+    city_dict = storage.all(City).values()
+    return render_template('8-cities_by_states.html', states=state_dict, citie=city_dict)
 
 
 if __name__ == '__main__':
