@@ -21,12 +21,8 @@ def teardown_db(self):
 @app.route('/cities_by_states', strict_slashes=False)
 def state_list():
     """Returns a HTML with states list"""
-    state_dict = storage.all(State)
-    city_dict = storage.all(City)
-    states_list = []
-    for state in state_dict.values():
-        states_list.append(state)
-    return render_template('8-cities_by_states.html', states=state_list, cities=city_dict)
+    state_dict = storage.all(State).values()
+    return render_template('8-cities_by_states.html', states=state_dict)
 
 
 if __name__ == '__main__':
